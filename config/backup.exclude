@@ -1,0 +1,135 @@
+# config/backup.exclude
+# Backup Exclusion Patterns
+# Patterns match files/dirs to exclude from backups
+# One pattern per line
+
+# ============================================================================
+# Cache Directories
+# ============================================================================
+.cache/*
+.local/share/cache/*
+~/.cache/*
+/var/cache/apt/*
+/var/cache/dnf/*
+/var/cache/yum/*
+
+# ============================================================================
+# Temporary Files
+# ============================================================================
+*.tmp
+*.bak
+*.swp
+*~
+*.backup
+.tmp/*
+/tmp/*
+/var/tmp/*
+
+# ============================================================================
+# Version Control Directories
+# ============================================================================
+# (Usually backed up separately or version-controlled)
+.git
+.gitignore
+.svn
+.hg
+CVS
+
+# ============================================================================
+# Package Manager Files
+# ============================================================================
+.npm/*
+node_modules/
+.composer/cache/*
+vendor/
+
+# ============================================================================
+# Virtual Environments
+# ============================================================================
+venv/
+env/
+.venv/
+.virtualenv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# ============================================================================
+# IDE & Editor Files
+# ============================================================================
+.vscode/
+.idea/
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.vim/
+.emacs.d/
+tags
+.ctags
+
+# ============================================================================
+# System Files
+# ============================================================================
+Thumbs.db
+desktop.ini
+.Thumbs.db
+lost+found/
+.Trash/
+.Trash-*
+$Recycle.Bin/
+
+# ============================================================================
+# Large Media Files (uncomment if needed)
+# ============================================================================
+# Videos/
+# *.mp4
+# *.avi
+# *.mkv
+# *.mov
+# Movies/
+# *.iso
+
+# ============================================================================
+# Log Files (uncomment if needed)
+# ============================================================================
+# *.log
+# logs/
+# /var/log/
+
+# ============================================================================
+# Database Files (uncomment if needed)
+# ============================================================================
+# *.db
+# *.sqlite
+# mysql/
+# postgresql/
+
+# ============================================================================
+# Build Artifacts (uncomment if development machine)
+# ============================================================================
+# build/
+# dist/
+# out/
+# target/
+# *.o
+# *.so
+
+# ============================================================================
+# Notes
+# ============================================================================
+
+# These patterns are used when creating backups to skip unnecessary files
+# and reduce backup size.
+#
+# Patterns are matched relative to the directories being backed up.
+# Use * for wildcards, / for directory separators.
+#
+# Examples:
+#   .cache/*              — Matches .cache directory
+#   *.tmp                 — Matches any .tmp files
+#   /var/log/             — Matches /var/log path
+#   node_modules/         — Matches node_modules anywhere
+#
+# Uncomment patterns relevant to your system.
+# Add custom patterns as needed for your environment.
