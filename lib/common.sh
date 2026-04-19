@@ -4,6 +4,12 @@
 
 set -euo pipefail
 
+# Guard against multiple sourcing
+if [[ -n "${_COMMON_SH_LOADED:-}" ]]; then
+    return 0
+fi
+_COMMON_SH_LOADED=1
+
 # ============================================================================
 # Color Codes for Readability
 # ============================================================================

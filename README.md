@@ -33,6 +33,152 @@ cd C:\Users\...\shellops
 .\shellops.ps1 help
 ```
 
+## How to Run ShellOps (All Platforms)
+
+### Method 1: Interactive Menu (Recommended for Beginners)
+
+**Linux & macOS:**
+```bash
+cd ~/Desktop/shellops
+./interactive_menu.sh
+# Or run main entry point and select option 1:
+./shellops
+# Then enter: 1
+```
+
+**Windows (PowerShell):**
+```powershell
+cd C:\path\to\shellops
+.\interactive_menu.ps1
+# Or run main entry point and select option 1:
+.\shellops.ps1
+# Then enter: 1
+```
+
+**Features:**
+- Number-based menu selection (type 0-8 and press Enter)
+- No command syntax needed
+- Organized submenus for each feature
+- Back/Exit navigation
+- Perfect for exploring features
+
+### Method 2: Direct Commands (Recommended for Experienced Users)
+
+**Linux & macOS — General Syntax:**
+```bash
+./shellops [COMMAND] [ACTION] [OPTIONS]
+```
+
+**Examples:**
+```bash
+# Health Checks
+./shellops health quick          # CPU, Memory, Disk in one line
+./shellops health report         # Full detailed report
+./shellops health cpu            # CPU usage only
+./shellops health memory         # Memory usage only
+./shellops health disk           # Disk usage only
+
+# User Monitoring
+./shellops monitor users         # List active users
+./shellops monitor idle          # Show idle times
+./shellops monitor history       # Login history
+./shellops monitor summary       # Full user summary
+./shellops monitor alerts        # Suspicious activity
+
+# Disk Cleanup
+./shellops cleanup analyze       # Analyze disk usage
+./shellops cleanup find-large    # Find files > 100MB
+./shellops cleanup duplicates    # Find duplicate files
+./shellops cleanup temp-dirs     # Check temp directories
+./shellops cleanup clean-temp --dry-run  # Preview cleanup
+
+# Backups
+./shellops backup create         # Create backup
+./shellops backup list           # List backups
+./shellops backup restore        # Restore from backup
+./shellops backup test           # Test backup (dry-run)
+
+# utilities
+./shellops help                  # Show all commands
+./shellops version               # Show version info
+./shellops init                  # Configuration wizard
+```
+
+**Windows (PowerShell) — General Syntax:**
+```powershell
+.\shellops.ps1 [COMMAND] [ACTION] [OPTIONS]
+```
+
+**Examples (same as Linux/macOS):**
+```powershell
+.\shellops.ps1 health quick
+.\shellops.ps1 monitor users
+.\shellops.ps1 cleanup analyze
+.\shellops.ps1 backup create
+.\shellops.ps1 help
+```
+
+**Common Options:**
+```bash
+--dry-run         # Preview changes without executing
+--verbose, -v     # Detailed output
+--help, -h        # Show help for specific command
+```
+
+### Method 3: Setup Wizard (For Configuration)
+
+**Linux & macOS:**
+```bash
+cd ~/Desktop/shellops
+sudo ./setup_wizard.sh   # Interactive configuration prompts
+# Or via main menu:
+./shellops
+# Enter: 1 → 5 (Setup Wizard)
+```
+
+**Windows (PowerShell):**
+```powershell
+cd C:\path\to\shellops
+.\shellops.ps1 init
+# Or via main menu:
+.\shellops.ps1
+# Enter: 1 → 5 (Setup Wizard)
+```
+
+### Complete Usage Examples
+
+**Linux/macOS - Full System Analysis:**
+```bash
+./interactive_menu.sh     # Start menu
+# Select: 6 (System Report) → 1 (Full Analysis)
+# Or direct command:
+./shellops health report && ./shellops monitor summary && ./shellops cleanup analyze
+```
+
+**Windows - Monitor Active Users:**
+```powershell
+.\interactive_menu.ps1    # Start menu
+# Select: 2 (User Monitoring) → 6 (Full Summary)
+# Or direct command:
+.\shellops.ps1 monitor summary
+```
+
+**Linux/macOS - Disk Cleanup Preview:**
+```bash
+./shellops cleanup analyze
+./shellops cleanup find-large
+./shellops cleanup duplicates
+./shellops cleanup clean-temp --dry-run  # Preview only
+./shellops cleanup clean-temp            # Actually clean
+```
+
+**Windows - Backup Creation:**
+```powershell
+.\shellops.ps1 backup test      # Test backup (dry-run)
+.\shellops.ps1 backup create    # Create actual backup
+.\shellops.ps1 backup list      # View all backups
+```
+
 ## Features
 
 ### Supported on All Platforms

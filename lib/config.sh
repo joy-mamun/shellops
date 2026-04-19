@@ -2,6 +2,12 @@
 # lib/config.sh — Configuration management for ShellOps
 # Handles loading, validating, and exporting configuration
 
+# Guard against multiple sourcing
+if [[ -n "${_CONFIG_SH_LOADED:-}" ]]; then
+    return 0
+fi
+_CONFIG_SH_LOADED=1
+
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh" || exit 1
 
 # ============================================================================
