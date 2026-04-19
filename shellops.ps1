@@ -285,8 +285,35 @@ function Invoke-ShellOps {
         [string[]]$Arguments
     )
     
+    # Handle no command - offer interactive menu
+    if ([string]::IsNullOrEmpty($Command)) {
+        Write-Host ""
+        Write-Host "No command specified. Choose an option:" -ForegroundColor Cyan
+        Write-Host "  1) Launch Interactive Menu"
+        Write-Host "  2) Show Help"
+        Write-Host ""
+        
+        $menuChoice = Read-Host "Enter choice (1-2)"
+        
+        switch ($menuChoice) {
+            "1" {
+                # Launch interactive menu
+                & (Join-Path $script:ScriptPath "interactive_menu.ps1")
+                return
+            }
+            "2" {
+                Show-MainHelp
+                return
+            }
+            default {
+                Log-Error "Invalid choice"
+                Show-MainHelp
+                exit 1
+            }
+        }
+    }
+    
     switch ($Command.ToLower()) {
-        "" { Show-MainHelp }
         "init" { Execute-Init }
         "setup" { Execute-Setup }
         "monitor" { Execute-Monitor $Arguments }

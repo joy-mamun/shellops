@@ -336,10 +336,31 @@ execute_health() {
 # ============================================================================
 
 main() {
-    # Handle no arguments
+    # Handle no arguments - offer interactive menu
     if [[ $# -eq 0 ]]; then
-        show_main_help
-        return 0
+        echo ""
+        echo "No command specified. Choose an option:"
+        echo "  1) Launch Interactive Menu"
+        echo "  2) Show Help"
+        echo ""
+        read -p "Enter choice (1-2): " menu_choice
+        
+        case "$menu_choice" in
+            1)
+                # Launch interactive menu
+                bash "$SCRIPT_DIR/interactive_menu.sh"
+                return 0
+                ;;
+            2)
+                show_main_help
+                return 0
+                ;;
+            *)
+                log_error "Invalid choice"
+                show_main_help
+                return 1
+                ;;
+        esac
     fi
     
     local command="$1"
