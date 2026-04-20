@@ -53,35 +53,30 @@ create_backup() {
     local backup_file="$BACKUP_DIR/${backup_name}.${compression_ext}"
     local exclude_file="$(dirname "$0")/../config/backup.exclude"
     
-    # Build tar command with compression
-    local tar_opts="-c"
-    [[ -n "$compress_cmd" ]] && tar_opts="${tar_opts}$(echo "$compress_cmd" | sed 's/^/--use-compress-program=/' | sed 's/ / /g' | head -c1)"
-    [[ -f "$exclude_file" ]] && tar_opts="$tar_opts --exclude-from=$exclude_file"
-    
     log_info "Creating backup: $backup_file"
     log_info "Compression: ${BACKUP_COMPRESSION:-none}"
     
-    # Create backup
+    # Create backup with appropriate compression and error handling
     if [[ "$compress_cmd" == "gzip" ]]; then
-        tar -czf "$backup_file" $backup_dirs 2>/dev/null || {
+        tar -czf "$backup_file" --exclude-from="$exclude_file" $backup_dirs 2>&1 | grep -v "Cannot open\|Removing leading" || {
             log_error "Backup creation failed"
             rm -f "$backup_file"
             return 1
         }
     elif [[ "$compress_cmd" == "bzip2" ]]; then
-        tar -cjf "$backup_file" $backup_dirs 2>/dev/null || {
+        tar -cjf "$backup_file" --exclude-from="$exclude_file" $backup_dirs 2>&1 | grep -v "Cannot open\|Removing leading" || {
             log_error "Backup creation failed"
             rm -f "$backup_file"
             return 1
         }
     elif [[ "$compress_cmd" == "xz" ]]; then
-        tar -cJf "$backup_file" $backup_dirs 2>/dev/null || {
+        tar -cJf "$backup_file" --exclude-from="$exclude_file" $backup_dirs 2>&1 | grep -v "Cannot open\|Removing leading" || {
             log_error "Backup creation failed"
             rm -f "$backup_file"
             return 1
         }
     else
-        tar -cf "$backup_file" $backup_dirs 2>/dev/null || {
+        tar -cf "$backup_file" --exclude-from="$exclude_file" $backup_dirs 2>&1 | grep -v "Cannot open\|Removing leading" || {
             log_error "Backup creation failed"
             rm -f "$backup_file"
             return 1

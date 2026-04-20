@@ -15,7 +15,9 @@ list_active_users() {
     
     # Use 'who' to get active sessions
     if who | grep -q .; then
-        who | awk '{print $1, "logged in at", $3" "$4}' | column -t
+        echo "User       TTY        Login Time"
+        echo "───────────────────────────────────"
+        who | awk '{printf "%-10s %-10s %s %s\n", $1, $2, $3, $4}'
     else
         log_warn "No active users found"
     fi
@@ -61,11 +63,12 @@ show_user_idle_time() {
     fi
     
     log_info "User idle times:"
-    echo "User       Terminal  From         Idle"
-    echo "───────────────────────────────────────"
-    w -hs | awk '{
-        printf "%-10s %-9s %-12s %s\n", $1, $2, $3, $NF
-    }' | sort -k1
+    echo "User       TTY        From         Idle"
+    echo "────────────────────────────────────────"
+    # Using w -hs to get header-less, short format:
+    # Format: user tty from idle jcpu pcpu cmd
+    # Field: 1    2   3    4    5    6    7+
+    w -hs | awk '{printf "%-10s %-10s %-12s %s\n", $1, $2, $3, $4}' | sort -k1
 }
 
 # Display last login history

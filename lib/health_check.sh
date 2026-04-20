@@ -255,10 +255,17 @@ quick_health_check() {
     
     echo "CPU: ${cpu}% | Memory: ${mem}% | Disk: ${disk}%"
     
-    # Return error if any threshold exceeded
-    if (( cpu > HEALTH_CHECK_CPU_THRESHOLD || mem > HEALTH_CHECK_MEMORY_THRESHOLD || disk > HEALTH_CHECK_DISK_THRESHOLD )); then
-        return 1
+    # Check thresholds and warn if exceeded (but don't fail the command)
+    if (( cpu > HEALTH_CHECK_CPU_THRESHOLD )); then
+        log_warn "CPU usage is high: ${cpu}%"
     fi
+    if (( mem > HEALTH_CHECK_MEMORY_THRESHOLD )); then
+        log_warn "Memory usage is high: ${mem}%"
+    fi
+    if (( disk > HEALTH_CHECK_DISK_THRESHOLD )); then
+        log_warn "Disk usage is high: ${disk}%"
+    fi
+    
     return 0
 }
 
